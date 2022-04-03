@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jason.dao.UserDAO">
+    <cache type="com.jason.config.RedisCache"/>
+    <select id="findAll" resultType="com.jason.pojo.User">
+        select *
+        from czy_db01.user;
+    </select>
+
+    <delete id="deleteById">
+        delete
+        from czy_db01.user
+        where id=#{id};
+    </delete>
+</mapper>

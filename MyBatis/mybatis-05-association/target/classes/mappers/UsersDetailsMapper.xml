@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--namespace会绑定一个对应的dao/Mapper的接口-->
+<mapper namespace="com.jason.dao.UsersDetailsDAO">
+    <insert id="insertDetail" parameterType="com.jason.pojo.UsersDetails">
+        insert into mybatis.usersdetails(userAddr, userTel, userDesc, uid)
+        values (#{userAddr},#{userTel},#{userDesc},#{uid});
+    </insert>
+
+
+    <resultMap id="detailMap" type="UsersDetails">
+    </resultMap>
+    <select id="queryDetailByUid" resultMap="detailMap">
+        SELECT * FROM usersDetails WHERE uid=#{uid}
+    </select>
+</mapper>

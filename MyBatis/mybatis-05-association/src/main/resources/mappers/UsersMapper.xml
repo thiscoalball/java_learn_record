@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--namespace会绑定一个对应的dao/Mapper的接口-->
+<mapper namespace="com.jason.dao.UsersDAO">
+
+    <insert id="insertUser" parameterType="Users" useGeneratedKeys="true" keyProperty="userId">
+        insert into mybatis.users (name, pwd, realName, userImg)
+        values (#{name},#{pwd},#{realName},#{userImg});
+    </insert>
+
+    <resultMap id="userMap" type="Users">
+<!--        <result column="userAddr" property="usersDetails.userAddr"/>-->
+<!--        <result column="userTel" property="usersDetails.userTel"/>-->
+<!--        <result column="userDesc" property="usersDetails.userDesc"/>-->
+<!--        <result column="detailId" property="usersDetails.detailId"/>-->
+<!--        <result column="uid" property="usersDetails.uid"/>-->
+<!--        上面的方法过于笨重 我们这里用这种方法 -->
+        <association property="usersDetails" select="com.jason.dao.UsersDetailsDAO.queryDetailByUid"
+                     column="userId" />
+    </resultMap>
+    <select id="queryUser" parameterType="String" resultMap="userMap" >
+        select *
+        from mybatis.users
+        where name=#{name}
+    </select>
+<!--    SELECT * FROM  users u-->
+<!--    INNER JOIN usersdetails d-->
+<!--    ON u.userId=d.uid-->
+<!--    WHERE u.name=#{name}-->
+</mapper>

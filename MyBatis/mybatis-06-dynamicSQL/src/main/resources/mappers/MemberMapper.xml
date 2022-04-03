@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--namespace会绑定一个对应的dao/Mapper的接口-->
+<mapper namespace="com.jason.dao.MemberDAO">
+
+    <resultMap id="memberMap" type="Member">
+        <id column="memberId" property="memberId"/>
+        <result column="memberNick" property="memberNick"/>
+        <result column="memberGender" property="memberGender"/>
+        <result column="memberAge" property="memberAge"/>
+        <result column="memberCity" property="memberCity"/>
+    </resultMap>
+    <select id="searchMember" resultMap="memberMap">
+
+    </select>
+</mapper>

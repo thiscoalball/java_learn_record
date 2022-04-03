@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+<!--    引入外部配置文件-->
+    <properties resource="db.properties"/>
+
+<!--    <settings>-->
+<!--        <setting name="logImpl" value="LOG4J"/>-->
+<!--    </settings>-->
+    <typeAliases>
+        <typeAlias alias="User" type="com.jason.pojo.User"/>
+<!--        <package name="com.jason.pojo"/>-->
+    </typeAliases>
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="${driver}"/>
+                <property name="url" value="${url}"/>
+                <property name="username" value="${username}"/>
+                <property name="password" value="${password}"/>
+            </dataSource>
+        </environment>
+    </environments>
+<!--    每一个Mapper.xml都需要在这个核心配置中注册-->
+    <mappers>
+<!--        <mapper resource="com/jason/dao/UserMapper.xml"/>-->
+<!--        <mapper class="com.jason.dao.UserMapper"/>-->
+        <package name="com.jason.dao"/>
+    </mappers>
+</configuration>

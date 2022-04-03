@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--使用Spring来创建对象 在Spring中都称之为Bean-->
+
+    <!--    无参构造方法 -->
+<!--    <bean id="user" class="User">-->
+<!--        <property name="name" value="jason"/>-->
+<!--    </bean>-->
+
+    <!--有参构造方法 通过参数名设置 name后面是你的参数的名字-->
+    <bean id="user" class="User">
+        <constructor-arg name="name" value="jason"/>
+    </bean>
+
+</beans>

@@ -1,0 +1,3 @@
+[submodule "designpatterns"]
+	path = designpatterns
+	url = https://gitee.com/jason0131czy/design-patterns

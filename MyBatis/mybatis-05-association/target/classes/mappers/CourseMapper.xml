@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--namespace会绑定一个对应的dao/Mapper的接口-->
+<mapper namespace="com.jason.dao.CourseDAO">
+
+    <resultMap id="courseMap" type="Course">
+        <id column="courseId" property="courseId"/>
+        <result property="courseName" column="courseName"/>
+        <collection property="students" select="com.jason.dao.StudentDAO.queryStudentsByCourseId" column="courseId"/>
+        <!--连接查询配置-->
+        <!--<collection property="students" ofType="Student">-->
+        <!--    <result property="studentId" column="studentId"/>-->
+        <!--    <result property="studentName" column="studentName"/>-->
+        <!--    <result property="classId" column="classId"/>-->
+        <!--    <result property="studentAge" column="studentAge"/>-->
+        <!--</collection>-->
+    </resultMap>
+    <select id="queryCourseById" resultMap="courseMap">
+        select *
+        from course
+        where courseId = #{courseId};
+    </select>
+    <!--连接查询sql语句-->
+    <!--SELECT c.courseId, courseName, s.studentId, s.studentName, s.studentAge, s.classId-->
+    <!--FROM course c-->
+    <!--INNER JOIN grades g-->
+    <!--INNER JOIN students s-->
+    <!--ON c.courseId = g.courseId AND g.studentId = s.studentId-->
+    <!--WHERE c.courseId = #{courseId};-->
+</mapper>

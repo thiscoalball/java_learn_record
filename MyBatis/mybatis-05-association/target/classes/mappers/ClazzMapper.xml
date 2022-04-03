@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--namespace会绑定一个对应的dao/Mapper的接口-->
+<mapper namespace="com.jason.dao.ClazzDAO">
+
+    <resultMap id="clazzMap" type="Clazz">
+        <!--clazz的对象属性的studentList标签是一个集合 需要使用collection标签-->
+        <!--collection标签中的ofType属性可以声明集合中元素的类型-->
+        <id column="classId" property="classId"/>
+        <result column="className" property="className"/>
+        <result column="classDesc" property="classDesc"/>
+        <!--连接查询配置-->
+        <!--<collection property="studentList" ofType="Student">-->
+        <!--    <result column="studentId" property="studentId"/>-->
+        <!--    <result column="studentName" property="studentName"/>-->
+        <!--    <result column="studentAge" property="studentAge"/>-->
+        <!--    <result column="classId" property="classId"/>-->
+        <!--</collection>-->
+        <collection property="studentList" ofType="Student"
+                    select="com.jason.dao.StudentDAO.queryStudentByClassId" column="classId"/>
+    </resultMap>
+
+    <!--子查询语句-->
+    <select id="queryClassStudent" resultMap="clazzMap">
+        select *
+        from classes
+        where classId=#{classId}
+    </select>
+    <!--连接查询语句-->
+    <!--SELECT c.classId, c.className, classDesc, s.studentId, s.studentName, s.studentAge-->
+    <!--FROM classes c INNER JOIN students s-->
+    <!--ON c.classId = s.classId-->
+    <!--WHERE c.classId = #{classId}-->
+
+    <resultMap id="clazzMap1" type="Clazz">
+        <id column="classId" property="classId"/>
+        <result column="className" property="className"/>
+        <result column="classDesc" property="classDesc"/>
+    </resultMap>
+    <select id="queryClazz" resultMap="clazzMap1">
+        select * from mybatis.classes where classId=#{classID}
+    </select>
+</mapper>

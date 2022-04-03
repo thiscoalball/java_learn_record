@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        https://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <context:annotation-config/>
+    <context:component-scan base-package="com.jason"/>
+
+<!--    配置bean-->
+    <bean id="userService" class="com.jason.service.UserServiceImpl"/>
+    <bean id="log" class="com.jason.log.log"/>
+    <bean id="diy" class="com.jason.diy.diy"/>
+
+<!--  方式1：  配置aop 使用原生Spring的API接口-->
+    <aop:config>
+<!--        切入点   execution标识要执行的位置-->
+        <aop:pointcut id="pointcut" expression="execution(* com.jason.service.UserServiceImpl.*(..))"/>
+<!--        执行环绕增加   表示把log这个类切入到 pointcut后面对应的那些方法上面-->
+        <aop:advisor advice-ref="log" pointcut-ref="pointcut"/>
+    </aop:config>
+
+<!--   方式2： 自定义类-->
+    <aop:config>
+<!--        自定义切面 ref：要引用的类-->
+        <aop:aspect ref="diy">
+<!--            切入点-->
+            <aop:pointcut id="point" expression="execution(* com.jason.service.UserServiceImpl.*(..))"/>
+<!--            通知  method要执行的方法 pointcut-ref执行的地点-->
+            <aop:before method="before" pointcut-ref="point"/>
+            <aop:after method="after" pointcut-ref="point"/>
+        </aop:aspect>
+    </aop:config>
+
+<!--    方式3 利用注解 bean的注册我也用Component的注解实现了 现在只需要开启注解支持-->
+<!--    <bean id="annotation" class="com.jason.diy.AnnotationPointCut"/>-->
+    <aop:aspectj-autoproxy/>
+
+</beans>

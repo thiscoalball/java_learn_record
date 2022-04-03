@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--namespace会绑定一个对应的dao/Mapper的接口-->
+<mapper namespace="com.jason.dao.StudentDAO">
+    <resultMap id="studentMap" type="Student">
+        <!--有时候可以省略这段 有时候不行 所以还是老老老实实写把-->
+        <id column="classId" property="classId"/>
+        <result column="studentId" property="studentId"/>
+        <result column="studentName" property="studentName"/>
+        <result column="studentAge" property="studentAge"/>
+    </resultMap>
+    <select id="queryStudentByClassId" resultMap="studentMap">
+        select studentId, studentName, studentAge, classId
+        from mybatis.students
+        where classId = #{classId}
+    </select>
+
+    <resultMap id="studentMap2" type="Student">
+        <result column="studentId" property="studentId"/>
+        <result column="studentName" property="studentName"/>
+        <result column="studentAge" property="studentAge"/>
+        <result column="classId" property="classId"/>
+        <association property="clazz" select="com.jason.dao.ClazzDAO.queryClazz" column="classId"/>
+    </resultMap>
+    <select id="queryStudentByStudentId" resultMap="studentMap2">
+        select *
+        from students
+        where studentId = #{studentId}
+    </select>
+    <!--连接查询配置-->
+    <!--SELECT *-->
+    <!--FROM students s INNER JOIN classes c-->
+    <!--ON s.classId = c.classId-->
+    <!--WHERE s.studentId='10001'-->
+
+
+    <resultMap id="studentMap3" type="Student">
+        <result column="studentId" property="studentId"/>
+        <result column="studentName" property="studentName"/>
+        <result column="studentAge" property="studentAge"/>
+        <result column="classId" property="classId"/>
+    </resultMap>
+    <select id="queryStudentsByCourseId" resultMap="studentMap3">
+        SELECT s.studentId, studentName, studentAge,classId
+        FROM students s
+                 INNER JOIN grades g ON s.studentId = g.studentId
+        WHERE g.courseId = 1
+    </select>
+</mapper>

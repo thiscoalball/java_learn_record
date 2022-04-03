@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--namespace会绑定一个对应的dao/Mapper的接口-->
+
+<mapper namespace="com.jason.dao.StudentMapper">
+    <select id="getStudentList" resultType="Student"  >
+        select * from mybatis.student
+    </select>
+
+    <select id="getStudentById" parameterType="_int" resultType="Student">
+        select * from mybatis.student where stu_id=#{stu_id}
+    </select>
+
+    <insert id="insertStudent" parameterType="Student" useGeneratedKeys="true" keyProperty="stu_id" >
+        insert into mybatis.student(stu_id, stu_num, stu_name, stu_gender, stu_age)
+        values (#{stu_id},#{stu_num},#{stu_name},#{stu_gender},#{stu_age})
+    </insert>
+
+    <update id="updateStudent" parameterType="Student" >
+        update mybatis.student
+        set stu_num=#{stu_num},stu_name=#{stu_name},stu_gender=#{stu_gender},stu_age=#{stu_age}
+        where stu_id=#{stu_id}
+    </update>
+
+    <delete id="deleteStudent" parameterType="_int">
+        delete
+        from mybatis.student
+        where stu_id = #{stu_id}
+    </delete>
+
+    <select id="getStudentListByGender" resultType="Student">
+        select * from mybatis.student where stu_gender=#{stu_gender}
+</select>
+</mapper>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        https://www.springframework.org/schema/context/spring-context.xsd">
+
+    <context:annotation-config/>
+    <context:component-scan base-package="com.jason"/>
+        <bean id="dog" class="com.jason.pojo.Dog"/>
+        <bean id="person" class="com.jason.pojo.Person"/>
+</beans>
+
+        <!--<beans xmlns="http://www.springframework.org/schema/beans"-->
+        <!--       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"-->
+        <!--       xsi:schemaLocation="http://www.springframework.org/schema/beans-->
+        <!--        https://www.springframework.org/schema/beans/spring-beans.xsd">-->
+
+        <!--    <bean id="cat" class="com.jason.pojo.Cat"/>-->
+        <!--    <bean id="dog" class="com.jason.pojo.Dog"/>-->
+        <!--&lt;!&ndash;byName 会自动在容器上下文查找 和自己对象set方法后面的值对应的bean的id-->
+        <!--    byType 会自动在容器上下文查找 和自己对象属性类型相同的bean(必须保证类型对象只有一个)-->
+
+        <!--&ndash;&gt;-->
+        <!--    <bean id="person" class="com.jason.pojo.Person" autowire="byType">-->
+        <!--        <property name="name" value="jason"/>-->
+        <!--    </bean>-->
+
+        <!--</beans>-->
